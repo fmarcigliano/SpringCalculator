@@ -1,0 +1,29 @@
+.labor {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1.5rem;
+  width: 50%;
+  border: 1px solid #aaaabc;
+  border-radius: 1.25rem;
+  background-color: #0f3154;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+@media (max-width: 486px) {
+  .labor {
+    width: 100%;
+  }
+}
+
+@media (min-width: 487px) and (max-width: 768px) {
+  .labor {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 956px) {
+  .labor {
+    width: 65%;
+  }
+}
