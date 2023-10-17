@@ -34,3 +34,7 @@
     width: 65%;
   }
 }
+
+.MuiInputAdornment-positionEnd {
+  color: "white";
+}

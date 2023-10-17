@@ -1,4 +1,10 @@
-import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react";
 import { steelWeightsTable } from "../../utils/steel-table";
 import MenuItem from "@mui/material/MenuItem";
 import {
@@ -7,6 +13,7 @@ import {
   FormControl,
   FormControlLabel,
   Grid,
+  InputAdornment,
 } from "@mui/material";
 import {
   CustomTextField,
@@ -75,75 +82,81 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
     calcSum(newValues);
   };
 
-  const calcSum = useCallback((newValues) => {
-    const {
-      meanDiameter,
-      totalNumberOfCoils,
-      steelSpecificGravity,
-      price,
-      springQuantity,
-      innerDiameter,
-      outerDiameter,
-      wireDiameter,
-    } = newValues;
+  const calcSum = useCallback(
+    (newValues) => {
+      const {
+        meanDiameter,
+        totalNumberOfCoils,
+        steelSpecificGravity,
+        price,
+        springQuantity,
+        innerDiameter,
+        outerDiameter,
+        wireDiameter,
+      } = newValues;
 
-    let newMeanDiameter = +meanDiameter;
-    let newWireDiameter = +wireDiameter;
-    let newInnerDiameter = +innerDiameter;
-    let newOuterDiameter = +outerDiameter;
+      let newMeanDiameter = +meanDiameter;
+      let newWireDiameter = +wireDiameter;
+      let newInnerDiameter = +innerDiameter;
+      let newOuterDiameter = +outerDiameter;
 
-    if (newWireDiameter > 0) setWireDiameter(newWireDiameter);
-    if (newWireDiameter <= 0) setWireDiameter("");
-    if (newInnerDiameter > 0) setInnerDiameter(newInnerDiameter);
-    if (newInnerDiameter <= 0) setInnerDiameter("");
-    if (newOuterDiameter > 0) setOuterDiameter(newOuterDiameter);
-    if (newOuterDiameter <= 0) setOuterDiameter("");
+      if (newWireDiameter > 0) setWireDiameter(newWireDiameter);
+      if (newWireDiameter <= 0) setWireDiameter("");
+      if (newInnerDiameter > 0) setInnerDiameter(newInnerDiameter);
+      if (newInnerDiameter <= 0) setInnerDiameter("");
+      if (newOuterDiameter > 0) setOuterDiameter(newOuterDiameter);
+      if (newOuterDiameter <= 0) setOuterDiameter("");
 
-    if (newInnerDiameter) {
-      newMeanDiameter = +newInnerDiameter - +newWireDiameter;
-      setDiamaterInnerDisabled(false);
-    } else {
-      setDiamaterInnerDisabled(true);
-    }
-    if (newOuterDiameter) {
-      newMeanDiameter = +newOuterDiameter + +newWireDiameter;
-      setDiamaterOuterDisabled(false);
-    }
-    if (newMeanDiameter > 0) setMeanDiameter(newMeanDiameter);
-    if (newMeanDiameter <= 0) setMeanDiameter("");
+      if (newInnerDiameter) {
+        newMeanDiameter = +newInnerDiameter + +newWireDiameter;
+        setDiamaterInnerDisabled(false);
+      } else {
+        setDiamaterInnerDisabled(true);
+      }
+      if (newOuterDiameter) {
+        newMeanDiameter = +newOuterDiameter - +newWireDiameter;
+        setDiamaterOuterDisabled(false);
+      } else {
+        setDiamaterOuterDisabled(true);
+      }
+      if (newMeanDiameter > 0) setMeanDiameter(newMeanDiameter);
+      if (newMeanDiameter <= 0) setMeanDiameter("");
 
-    const newSubtotal =
-      (+newMeanDiameter + +totalNumberOfCoils + +steelSpecificGravity) * 3.17;
-    const newWastage = +newSubtotal * 0.2;
-    const newSum = (+newSubtotal + +newWastage) * +price * +springQuantity;
+      const newWastage = (+newMeanDiameter * +totalNumberOfCoils * +steelSpecificGravity) * 3.17 * 0.2;
+      const newSubtotal =
+        (+newMeanDiameter * +totalNumberOfCoils * +steelSpecificGravity) * 3.17 + newWastage;
 
-    if (newMeanDiameter && totalNumberOfCoils && steelSpecificGravity) {
-      setSubtotal(newSubtotal.toFixed(2));
-      setWastage(newWastage.toFixed(2));
-    }
-    if (
-      !newMeanDiameter ||
-      !totalNumberOfCoils ||
-      !steelSpecificGravity ||
-      newSubtotal < 0
-    ) {
-      setSubtotal("");
-      setWastage("");
-    }
-    if (newSum !== 0) {
-      setSum(newSum.toFixed(2));
-      onSaveSum(newSum.toFixed(2));
-    }
-    if (
-      !newMeanDiameter ||
-      !totalNumberOfCoils ||
-      !steelSpecificGravity ||
-      !price ||
-      !springQuantity ||
-      newSum < 0
-    )
-      setSum("");
-  }, [onSaveSum]);
+      const newSum = (+newSubtotal) * +price * +springQuantity;
+
+      if (newMeanDiameter && totalNumberOfCoils && steelSpecificGravity) {
+        setSubtotal(newSubtotal.toFixed(2));
+        setWastage(newWastage.toFixed(2));
+      }
+      if (
+        !newMeanDiameter ||
+        !totalNumberOfCoils ||
+        !steelSpecificGravity ||
+        newSubtotal < 0
+      ) {
+        setSubtotal("");
+        setWastage("");
+      }
+      if (newSum !== 0) {
+        setSum(newSum.toFixed(2));
+        onSaveSum(newSum.toFixed(2));
+      }
+      if (
+        !newMeanDiameter ||
+        !totalNumberOfCoils ||
+        !steelSpecificGravity ||
+        !price ||
+        !springQuantity ||
+        newSum < 0
+      )
+        setSum("");
+    },
+    [onSaveSum]
+  );
 
   useEffect(() => {
     calcSum(values);
@@ -155,11 +168,11 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
         price: "",
         totalNumberOfCoils: "",
         springQuantity: "",
-        meanDiameter: '',
+        meanDiameter: "",
         innerDiameter: "",
         outerDiameter: "",
         wireDiameter: "",
-        steelSpecificGravity: '',
+        steelSpecificGravity: "",
       };
     });
   };
@@ -196,13 +209,21 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
       <Grid container style={containerStyle}>
         <h2>Resortes</h2>
         <Grid item alignItems="stretch" style={{ display: "flex" }}>
-          <CustomTextField 
+          <CustomTextField
             onChange={onChange}
             value={values.meanDiameter}
             name="meanDiameter"
             id="meanDiameter"
             type="number"
             label="Diametro Medio"
+            focused={true}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  mm
+                </InputAdornment>
+              ),
+            }}
             disabled={diamaterFormulasBoxShown}
             className={customClassForMeanDiameter}
           />
@@ -227,6 +248,14 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
             id="wireDiameter"
             type="number"
             label="Diametro Alambre"
+            focused={true}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  mm
+                </InputAdornment>
+              ),
+            }}
             disabled={!diamaterFormulasBoxShown}
             className={customClassForDisabledState}
           />
@@ -240,6 +269,14 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
             id="innerDiameter"
             type="number"
             label="Diametro Interior"
+            focused={true}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  mm
+                </InputAdornment>
+              ),
+            }}
             disabled={!diamaterOuterDisabled || !diamaterFormulasBoxShown}
             className={customClassForInnerDiameter}
           />
@@ -251,6 +288,14 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
             id="outerDiameter"
             type="number"
             label="Diametro Exterior"
+            focused={true}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  mm
+                </InputAdornment>
+              ),
+            }}
             disabled={!diamaterInnerDisabled || !diamaterFormulasBoxShown}
             className={customClassForOuterDiameter}
           />
@@ -264,6 +309,7 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
             id="totalNumberOfCoils"
             type="number"
             label="Total de Espiras"
+            focused={true}
           />
 
           <FormControl
@@ -280,17 +326,18 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
               id="steelSpecificGravity"
               type="number"
               label="Peso del Acero"
+              
               MenuProps={{
-          PaperProps: {
-            sx: {
-              bgcolor: '#0f3154',
-              color: 'white',
-              '& .MuiMenuItem-root': {
-                padding: 2,
-              },
-            },
-          },}
-              }
+                PaperProps: {
+                  sx: {
+                    bgcolor: "#0f3154",
+                    color: "white",
+                    "& .MuiMenuItem-root": {
+                      padding: 2,
+                    },
+                  },
+                },
+              }}
             >
               {steelWeightsTable.map((option) => (
                 <MenuItem key={option.name} value={option.value}>
@@ -302,14 +349,21 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
         </Grid>
 
         <Grid>
-          <CustomTextField
-            defaultValue={3.17}
-            name="pi"
-            id="pi"
+        <CustomTextField
+            onChange={onChange}
+            value={wastage}
+            id="wastage"
+            name="wastage"
             type="number"
-            label="Pi"
+            label="Desperdicio 20%"
+            focused={true}
             InputProps={{
               readOnly: true,
+              endAdornment: (
+                <InputAdornment position="end">
+                  g
+                </InputAdornment>
+              ),
             }}
           />
 
@@ -323,24 +377,16 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
             focused={true}
             InputProps={{
               readOnly: true,
+              endAdornment: (
+                <InputAdornment position="end">
+                  g
+                </InputAdornment>
+              ),
             }}
           />
         </Grid>
 
         <Grid>
-          <CustomTextField
-            onChange={onChange}
-            value={wastage}
-            id="wastage"
-            name="wastage"
-            type="number"
-            label="Desperdicio 20%"
-            focused={true}
-            InputProps={{
-              readOnly: true,
-            }}
-          />
-
           <CustomTextField
             onChange={onChange}
             value={values.price}
@@ -348,10 +394,16 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
             name="price"
             type="number"
             label="Precio"
+            focused={true}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  $
+                </InputAdornment>
+              ),
+            }}
           />
-        </Grid>
 
-        <Grid>
           <CustomTextField
             onChange={onChange}
             value={values.springQuantity}
@@ -359,8 +411,11 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
             name="springQuantity"
             type="number"
             label="Cantidad de Resortes"
+            focused={true}
           />
+        </Grid>
 
+        <Grid>
           <CustomTextField
             onChange={onChange}
             value={sum}
@@ -377,6 +432,6 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
       </Grid>
     </Box>
   );
-}
+};
 
 export default forwardRef(SpringCalculation);

@@ -4,7 +4,6 @@ import { styled } from "@mui/material/styles";
 import { InputLabel } from "@mui/material";
 
 export const CustomTextField = styled(TextField)`
-
 && {
   
   margin-top: 10px;
@@ -41,41 +40,42 @@ export const CustomTextField = styled(TextField)`
     &.Mui-focused fieldset {
       border-color: white;
     }
+    }
 
-      
+      .MuiTypography-root {
+        color: white;
+      }
     }
   }
-}
 `;
 
 export const CustomSelect = styled(Select)`
-&& {
-  margin-top: 10px;
-  margin-bottom: 20px;
-  width: 200px;
-  color: white;
-
-  .MuiInputLabel-root {
+  && {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 200px;
     color: white;
-  }
 
-  .MuiOutlinedInput-notchedOutline {
-    border-color: white;
-  }
+    .MuiInputLabel-root {
+      color: white;
+    }
 
-  &.Mui-focused .MuiOutlinedInput-notchedOutline {
-    border-color: white;
-  }
+    .MuiOutlinedInput-notchedOutline {
+      border-color: white;
+    }
 
-  &:hover .MuiOutlinedInput-notchedOutline {
-    border-color: white;
-  }
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: white;
+    }
 
-  .MuiSvgIcon-root {
-    fill: white;
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border-color: white;
+    }
+
+    .MuiSvgIcon-root {
+      fill: white;
+    }
   }
-  
-}
 `;
 
 export const CustomInputLabel = styled(InputLabel)`
