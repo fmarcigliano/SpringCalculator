@@ -21,6 +21,7 @@ import {
   CustomInputLabel,
 } from "../../MUICustomComponents/MuiStyles";
 import "./SpringCalculation.css";
+import compressionSpring from "../../assets/compression_spring.jpg";
 
 const SpringCalculation = ({ onSaveSum }, ref) => {
   const [values, setValues] = useState({
@@ -122,11 +123,17 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
       if (newMeanDiameter > 0) setMeanDiameter(newMeanDiameter);
       if (newMeanDiameter <= 0) setMeanDiameter("");
 
-      const newWastage = (+newMeanDiameter * +totalNumberOfCoils * +steelSpecificGravity) * 3.17 * 0.2;
+      const newWastage =
+        +newMeanDiameter *
+        +totalNumberOfCoils *
+        +steelSpecificGravity *
+        3.17 *
+        0.2;
       const newSubtotal =
-        (+newMeanDiameter * +totalNumberOfCoils * +steelSpecificGravity) * 3.17 + newWastage;
+        +newMeanDiameter * +totalNumberOfCoils * +steelSpecificGravity * 3.17 +
+        newWastage;
 
-      const newSum = (+newSubtotal) * +price * +springQuantity;
+      const newSum = +newSubtotal * +price * +springQuantity;
 
       if (newMeanDiameter && totalNumberOfCoils && steelSpecificGravity) {
         setSubtotal(newSubtotal.toFixed(2));
@@ -201,235 +208,241 @@ const SpringCalculation = ({ onSaveSum }, ref) => {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    padding: "16px",
+    backgroundColor: "#607d8b",
+    border: "2px solid black",
+    borderRadius: "1.25rem",
   };
 
+
+
   return (
-    <Box className="springBox">
-      <Grid container style={containerStyle}>
-        <h2>Resortes</h2>
-        <Grid item alignItems="stretch" style={{ display: "flex" }}>
-          <CustomTextField
-            onChange={onChange}
-            value={values.meanDiameter}
-            name="meanDiameter"
-            id="meanDiameter"
-            type="number"
-            label="Diametro Medio"
-            focused={true}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  mm
-                </InputAdornment>
-              ),
+    <Box>
+      <Box className="springBox">
+        <Grid container>
+          <Grid
+            className="compressionSringImg"
+            item
+            style={{
+              display: "flex",
+              backgroundImage: `url(${compressionSpring})`,
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "50% 50%",
             }}
-            disabled={diamaterFormulasBoxShown}
-            className={customClassForMeanDiameter}
-          />
-
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={diamaterFormulasBoxShown}
-                onChange={checkboxDiameterFormulasHandler}
-                style={{ marginLeft: 10 }}
+            xs={12}
+            sm= {12}
+            md={6}
+          ></Grid>
+          <Grid item style={containerStyle} xs={12} sm={12} md={6}>
+            <h2>Resortes</h2>
+            <Grid item alignItems="stretch" style={{ display: "flex" }}>
+              <CustomTextField
+                onChange={onChange}
+                value={values.meanDiameter}
+                name="meanDiameter"
+                id="meanDiameter"
+                type="number"
+                label="Diametro Medio"
+                focused={true}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">mm</InputAdornment>
+                  ),
+                }}
+                disabled={diamaterFormulasBoxShown}
+                className={customClassForMeanDiameter}
               />
-            }
-            label="No se tiene este valor"
-          />
-        </Grid>
 
-        <Grid item>
-          <CustomTextField
-            onChange={onChange}
-            value={values.wireDiameter}
-            name="wireDiameter"
-            id="wireDiameter"
-            type="number"
-            label="Diametro Alambre"
-            focused={true}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  mm
-                </InputAdornment>
-              ),
-            }}
-            disabled={!diamaterFormulasBoxShown}
-            className={customClassForDisabledState}
-          />
-        </Grid>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={diamaterFormulasBoxShown}
+                    onChange={checkboxDiameterFormulasHandler}
+                    style={{ marginLeft: 10 }}
+                  />
+                }
+                label="No se tiene este valor"
+              />
+            </Grid>
 
-        <Grid item>
-          <CustomTextField
-            onChange={onChange}
-            value={values.innerDiameter}
-            name="innerDiameter"
-            id="innerDiameter"
-            type="number"
-            label="Diametro Interior"
-            focused={true}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  mm
-                </InputAdornment>
-              ),
-            }}
-            disabled={!diamaterOuterDisabled || !diamaterFormulasBoxShown}
-            className={customClassForInnerDiameter}
-          />
+            <Grid item>
+              <CustomTextField
+                onChange={onChange}
+                value={values.wireDiameter}
+                name="wireDiameter"
+                id="wireDiameter"
+                type="number"
+                label="Diametro Alambre"
+                focused={true}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">mm</InputAdornment>
+                  ),
+                }}
+                disabled={!diamaterFormulasBoxShown}
+                className={customClassForDisabledState}
+              />
+            </Grid>
 
-          <CustomTextField
-            onChange={onChange}
-            value={values.outerDiameter}
-            name="outerDiameter"
-            id="outerDiameter"
-            type="number"
-            label="Diametro Exterior"
-            focused={true}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  mm
-                </InputAdornment>
-              ),
-            }}
-            disabled={!diamaterInnerDisabled || !diamaterFormulasBoxShown}
-            className={customClassForOuterDiameter}
-          />
-        </Grid>
+            <Grid item>
+              <CustomTextField
+                onChange={onChange}
+                value={values.innerDiameter}
+                name="innerDiameter"
+                id="innerDiameter"
+                type="number"
+                label="Diametro Interior"
+                focused={true}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">mm</InputAdornment>
+                  ),
+                }}
+                disabled={!diamaterOuterDisabled || !diamaterFormulasBoxShown}
+                className={customClassForInnerDiameter}
+              />
 
-        <Grid>
-          <CustomTextField
-            onChange={onChange}
-            value={values.totalNumberOfCoils}
-            name="totalNumberOfCoils"
-            id="totalNumberOfCoils"
-            type="number"
-            label="Total de Espiras"
-            focused={true}
-          />
+              <CustomTextField
+                onChange={onChange}
+                value={values.outerDiameter}
+                name="outerDiameter"
+                id="outerDiameter"
+                type="number"
+                label="Diametro Exterior"
+                focused={true}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">mm</InputAdornment>
+                  ),
+                }}
+                disabled={!diamaterInnerDisabled || !diamaterFormulasBoxShown}
+                className={customClassForOuterDiameter}
+              />
+            </Grid>
 
-          <FormControl
-            sx={{
-              minWidth: 200,
-              maxWidth: "100%",
-            }}
-          >
-            <CustomInputLabel>Peso del Acero</CustomInputLabel>
-            <CustomSelect
-              onChange={onChange}
-              value={values.steelSpecificGravity}
-              name="steelSpecificGravity"
-              id="steelSpecificGravity"
-              type="number"
-              label="Peso del Acero"
-              
-              MenuProps={{
-                PaperProps: {
-                  sx: {
-                    bgcolor: "#0f3154",
-                    color: "white",
-                    "& .MuiMenuItem-root": {
-                      padding: 2,
+            <Grid>
+              <CustomTextField
+                onChange={onChange}
+                value={values.totalNumberOfCoils}
+                name="totalNumberOfCoils"
+                id="totalNumberOfCoils"
+                type="number"
+                label="Total de Espiras"
+                focused={true}
+              />
+
+              <FormControl
+                sx={{
+                  minWidth: 200,
+                  maxWidth: "100%",
+                }}
+              >
+                <CustomInputLabel>Peso del Acero</CustomInputLabel>
+                <CustomSelect
+                  onChange={onChange}
+                  value={values.steelSpecificGravity}
+                  name="steelSpecificGravity"
+                  id="steelSpecificGravity"
+                  type="number"
+                  label="Peso del Acero"
+                  MenuProps={{
+                    PaperProps: {
+                      sx: {
+                        bgcolor: "#607D8B",
+                        color: "black",
+                        "& .MuiMenuItem-root": {
+                          padding: 2,
+                        },
+                      },
                     },
-                  },
-                },
-              }}
-            >
-              {steelWeightsTable.map((option) => (
-                <MenuItem key={option.name} value={option.value}>
-                  {option.name}
-                </MenuItem>
-              ))}
-            </CustomSelect>
-          </FormControl>
+                  }}
+                >
+                  {steelWeightsTable.map((option) => (
+                    <MenuItem key={option.name} value={option.value}>
+                      {option.name}
+                    </MenuItem>
+                  ))}
+                </CustomSelect>
+              </FormControl>
+            </Grid>
+
+            <Grid>
+              <CustomTextField
+                onChange={onChange}
+                value={wastage}
+                id="wastage"
+                name="wastage"
+                type="number"
+                label="Desperdicio 20%"
+                focused={true}
+                InputProps={{
+                  readOnly: true,
+                  endAdornment: (
+                    <InputAdornment position="end">g</InputAdornment>
+                  ),
+                }}
+              />
+
+              <CustomTextField
+                onChange={onChange}
+                value={subtotal}
+                id="subtotal"
+                name="subtotal"
+                type="number"
+                label="Subtotal"
+                focused={true}
+                InputProps={{
+                  readOnly: true,
+                  endAdornment: (
+                    <InputAdornment position="end">g</InputAdornment>
+                  ),
+                }}
+              />
+            </Grid>
+
+            <Grid>
+              <CustomTextField
+                onChange={onChange}
+                value={values.price}
+                id="price"
+                name="price"
+                type="number"
+                label="Precio"
+                focused={true}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
+              />
+
+              <CustomTextField
+                onChange={onChange}
+                value={values.springQuantity}
+                id="springQuantity"
+                name="springQuantity"
+                type="number"
+                label="Cantidad de Resortes"
+                focused={true}
+              />
+            </Grid>
+
+            <Grid>
+              <CustomTextField
+                onChange={onChange}
+                value={sum}
+                id="sum"
+                name="sum"
+                type="number"
+                label="Total"
+                focused={true}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </Grid>
+          </Grid>
         </Grid>
-
-        <Grid>
-        <CustomTextField
-            onChange={onChange}
-            value={wastage}
-            id="wastage"
-            name="wastage"
-            type="number"
-            label="Desperdicio 20%"
-            focused={true}
-            InputProps={{
-              readOnly: true,
-              endAdornment: (
-                <InputAdornment position="end">
-                  g
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          <CustomTextField
-            onChange={onChange}
-            value={subtotal}
-            id="subtotal"
-            name="subtotal"
-            type="number"
-            label="Subtotal"
-            focused={true}
-            InputProps={{
-              readOnly: true,
-              endAdornment: (
-                <InputAdornment position="end">
-                  g
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Grid>
-
-        <Grid>
-          <CustomTextField
-            onChange={onChange}
-            value={values.price}
-            id="price"
-            name="price"
-            type="number"
-            label="Precio"
-            focused={true}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  $
-                </InputAdornment>
-              ),
-            }}
-          />
-
-          <CustomTextField
-            onChange={onChange}
-            value={values.springQuantity}
-            id="springQuantity"
-            name="springQuantity"
-            type="number"
-            label="Cantidad de Resortes"
-            focused={true}
-          />
-        </Grid>
-
-        <Grid>
-          <CustomTextField
-            onChange={onChange}
-            value={sum}
-            id="sum"
-            name="sum"
-            type="number"
-            label="Total"
-            focused={true}
-            InputProps={{
-              readOnly: true,
-            }}
-          />
-        </Grid>
-      </Grid>
+      </Box>
     </Box>
   );
 };

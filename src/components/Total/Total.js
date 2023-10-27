@@ -40,7 +40,6 @@ const Total = () => {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    padding: "16px",
   };
 
   return (

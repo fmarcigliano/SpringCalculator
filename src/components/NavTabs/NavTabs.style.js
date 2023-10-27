@@ -1,6 +1,6 @@
 export const tabsStyles = {
   width: "100%",
-  background: "#0f3154",
+  background: "#607D8B",
   boxShadow: "0px 3px 15px rgba(34, 35, 58, 0.5)",
   ".MuiTabs-indicator": {
     display: "none",

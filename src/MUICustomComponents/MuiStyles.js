@@ -9,41 +9,42 @@ export const CustomTextField = styled(TextField)`
   margin-top: 10px;
   margin-bottom: 10px;
   width: 200px;
+  margin: 12px;
 
   input {
-    color: white;
+    color: black;
   }
   
 
   & label.Mui-focused {
-    color: white;
+    color: black;
   }
 
   .MuiInputLabel-root {
-    color: white;
+    color: black;
   }
 
   .MuiOutlinedInput-root {
     & fieldset {
-      border-color: white;
+      border-color: black;
     }
 
     &:hover fieldset {
-      border-color: white;
+      border-color: black;
     }
 
     &:disabled {
-      color: white;
-      background-color: white;
+      color: black;
+      background-color: black;
     }
 
     &.Mui-focused fieldset {
-      border-color: white;
+      border-color: black;
     }
     }
 
       .MuiTypography-root {
-        color: white;
+        color: black;
       }
     }
   }
@@ -51,40 +52,42 @@ export const CustomTextField = styled(TextField)`
 
 export const CustomSelect = styled(Select)`
   && {
+    margin: 12px;
     margin-top: 10px;
     margin-bottom: 20px;
     width: 200px;
-    color: white;
+    color: black;
 
     .MuiInputLabel-root {
-      color: white;
+      color: black;
     }
 
     .MuiOutlinedInput-notchedOutline {
-      border-color: white;
+      border-color: black;
     }
 
     &.Mui-focused .MuiOutlinedInput-notchedOutline {
-      border-color: white;
+      border-color: black;
     }
 
     &:hover .MuiOutlinedInput-notchedOutline {
-      border-color: white;
+      border-color: black;
     }
 
     .MuiSvgIcon-root {
-      fill: white;
+      fill: black;
     }
   }
 `;
 
 export const CustomInputLabel = styled(InputLabel)`
   && {
-    padding-top: 10px;
-    color: white;
+    padding-top: 15px;
+    padding-left: 15px;
+    color: black;
 
     &.Mui-focused {
-      color: white;
+      color: black;
       padding-top: 15px;
     }
   }

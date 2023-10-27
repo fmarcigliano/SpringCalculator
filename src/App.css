@@ -1,6 +1,6 @@
 .mainBox {
-  background-color: #164679;
-  color: white;
+  background-color: white;
+  color: black;
   padding: 20px;
   font-family: Roboto, "Helvetica Neue";
 }
@@ -12,5 +12,9 @@ input::-webkit-inner-spin-button {
 }
 
 h1 {
+  text-align: center;
+}
+
+h2 {
   text-align: center;
 }

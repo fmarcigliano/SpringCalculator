@@ -9,29 +9,18 @@
   display: flex;
   justify-content: space-evenly;
   gap: 1.5rem;
-  width: 50%;
-  border: 1px solid #aaaabc;
-  border-radius: 1.25rem;
-  background-color: #0f3154;
   margin: 0 auto;
-  margin-top: 1rem;
+  margin-top: 3rem;
+  /* background-color: #607d8b; */
 }
 
-@media (max-width: 486px) {
+@media (max-width: 975px) {
   .springBox {
     width: 100%;
   }
-}
-
-@media (min-width: 487px) and (max-width: 768px) {
-  .springBox {
+  .compressionSringImg {
     width: 100%;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 956px) {
-  .springBox {
-    width: 65%;
+    min-height: 500px;
   }
 }
 
